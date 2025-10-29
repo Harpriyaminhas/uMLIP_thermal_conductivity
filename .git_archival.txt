@@ -1,0 +1,3 @@
+node: 5b1ee33b615faae41abd56581336827b2a1c49d3
+node-date: 2025-07-06T12:19:08+08:00
+dscribe-name: v1.2.0e
