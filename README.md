@@ -1,13 +1,5 @@
 <!-- <h1 align="center">MatterSim_Thermal_confutivity</h1> -->
 
-<h4 align="center">
-
-[![arXiv](https://img.shields.io/badge/arXiv-2405.04967-blue?logo=arxiv&logoColor=white.svg)](https://arxiv.org/abs/2405.04967)
-[![Requires Python 3.10+](https://img.shields.io/badge/Python-3.10+-blue.svg?logo=python&logoColor=white)](https://python.org/downloads)
-[![PyPI Downloads](https://static.pepy.tech/badge/mattersim)](https://pepy.tech/projects/mattersim)
-</h4>
-
-
 Unravelling Lone Pair Induced Bonding Effects on Thermal Conductivity in Metal Chalcogenides using Machine Learning Potentials
 
 ## Installation
@@ -73,7 +65,8 @@ generated best_model.pth is used to predict the lattice thermal condutivity.
 
 ## Thermal Condutivity
 All the results and the python files are placed in the Thermal _condutivity folder
-It also contains the CHGNet, MACEE and MatterSim predicted thermal conditivties benchmarked and validated against DFT thermal condutivity results.
+It also contains the CHGNet, MACE and MatterSim predicted thermal conditivties benchmarked and validated against DFT thermal condutivity results.
+Similarly install CHGNet and MACE to predict the Dynamical Stability
 ```
 
 ## Reference
