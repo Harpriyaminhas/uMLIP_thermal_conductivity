@@ -1,10 +1,4 @@
-<h1>
-<p align="center">
-    <img src="https://github.com/microsoft/mattersim/blob/main/docs/_static/mattersim-banner.png?raw=true" alt="MatterSim logo" width="600"/>
-</p>
-</h1>
-
-<!-- <h1 align="center">MatterSim</h1> -->
+<!-- <h1 align="center">MatterSim_Thermal_confutivity</h1> -->
 
 <h4 align="center">
 
@@ -14,11 +8,7 @@
 </h4>
 
 
-MatterSim is a deep learning atomistic model across elements, temperatures and pressures.
-
-## Documentation
-
-This README provides a quick start guide. For more comprehensive information, please refer to the [MatterSim documentation](https://microsoft.github.io/mattersim/).
+Unravelling Lone Pair Induced Bonding Effects on Thermal Conductivity in Metal Chalcogenides using Machine Learning Potentials
 
 ## Installation
 
@@ -60,9 +50,6 @@ cd mattersim
 
 2. Install MatterSim
 
-> [!WARNING]
-> We strongly recommend that users install MatterSim using [mamba or micromamba](https://mamba.readthedocs.io/en/latest/index.html), because *conda* can be significantly slower when resolving the dependencies in environment.yaml.
-
 To install the package, run the following command under the root of the folder:
 
 ```bash
@@ -75,64 +62,25 @@ uv pip install -e .
 
 We currently offer two pre-trained **MatterSim-v1** models based on the **M3GNet** architecture in the [pretrained_models](./pretrained_models/) folder:
 
-1. **MatterSim-v1.0.0-1M**: A mini version of the model that is faster to run.
-2. **MatterSim-v1.0.0-5M**: A larger version of the model that is more accurate.
+## To run phonopy and check dinamical stability 
+Phonopy folder contains the two python files, mattersim_ph_batch.py and mattersim_phonopy_class.py. Run mattersim_IFC.py to get the phonon results.
+The output results are in results_mattersim folder.
 
-These models have been trained using the data generated through the workflows
-introduced in the [MatterSim manuscript](https://arxiv.org/abs/2405.04967), which provides an in-depth
-explanation of the methodologies underlying the MatterSim model.
+## Fine Tune
+Data contained in the Fine_tune folder
+To fine tune, run finetune_mattersim.py
+generated best_model.pth is used to predict the lattice thermal condutivity.  
 
-More advanced and fully-supported pretrained versions of MatterSim,
-and additional materials capabilities are available in
-**[Azure Quantum Elements](https://quantum.microsoft.com/en-us/solutions/azure-quantum-elements)**.
-
-## Usage
-
-> [!TIP]
-> **Note for macOS Users:** If you are using macOS with Apple Silicon, please be aware of potential numerical instability with the MPS backend. We recommend using the CPU device for MatterSim on Mac to avoid these issues.
-
-### A minimal test
-```python
-import torch
-from loguru import logger
-from ase.build import bulk
-from ase.units import GPa
-from mattersim.forcefield import MatterSimCalculator
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
-logger.info(f"Running MatterSim on {device}")
-
-si = bulk("Si", "diamond", a=5.43)
-si.calc = MatterSimCalculator(device=device)
-logger.info(f"Energy (eV)                 = {si.get_potential_energy()}")
-logger.info(f"Energy per atom (eV/atom)   = {si.get_potential_energy()/len(si)}")
-logger.info(f"Forces of first atom (eV/A) = {si.get_forces()[0]}")
-logger.info(f"Stress[0][0] (eV/A^3)       = {si.get_stress(voigt=False)[0][0]}")
-logger.info(f"Stress[0][0] (GPa)          = {si.get_stress(voigt=False)[0][0] / GPa}")
+## Thermal Condutivity
+All the results and the python files are placed in the Thermal _condutivity folder
+It also contains the CHGNet, MACEE and MatterSim predicted thermal conditivties benchmarked and validated against DFT thermal condutivity results.
 ```
-
-In this release, we provide two checkpoints: `MatterSim-v1.0.0-1M.pth` and `MatterSim-v1.0.0-5M.pth`. By default, the `1M` version is loaded.
-To switch to the `5M` version, manually set the `load_path` of `MatterSimCalculator` as shown below:
-
-```python
-MatterSimCalculator(load_path="MatterSim-v1.0.0-5M.pth", device=device)
-```
-
-## Finetune
-> [!TIP]
-> MatterSim provides a finetune script to finetune the pre-trained MatterSim model on a custom dataset.
-> Please refer to the [MatterSim documentation](https://microsoft.github.io/mattersim/) for more details.
-
-### A minimal finetune example
-
-```bash
-torchrun --nproc_per_node=1 src/mattersim/training/finetune_mattersim.py --load_model_path mattersim-v1.0.0-1m --train_data_path tests/data/high_level_water.xyz
-```
-
-
-
 
 ## Reference
+@article{minhas2025mattersim_thermal_condutivity}
+      title={Unravelling Lone Pair Induced Bonding Effects on Thermal Conductivity in Metal Chalcogenides using Machine Learning Potentials},
+      author={Harpriya Minhas and Rahul Kumar Sharma and Biswarup Pathak},
+      year={2025},
 
 We kindly request that users of MatterSim version 1.0.0 cite our preprint available on arXiv:
 ```
@@ -147,25 +95,3 @@ We kindly request that users of MatterSim version 1.0.0 cite our preprint availa
       journal={arXiv preprint arXiv:2405.04967}
 }
 ```
-
-> [!IMPORTANT]
-> We kindly ask users to **explicitly** specify the exact model version and checkpoint (e.g., **MatterSim-v1.0.0-1M**) when reporting results in academic papers or technical reports, rather than referring to the model generically as **MatterSim**. Precise versioning is crucial for ensuring reproducibility. For instance, the statement "_This study was conducted using MatterSim-v1.0.0-1M_" serves as a good example.
-
-## Limitations
-
-**MatterSim-v1** is designed specifically for atomistic simulations of bulk materials. Applications or interpretations beyond this scope should be approached with caution. For instance, when using the model for simulations involving surfaces, interfaces, or properties influenced by long-range interactions, the results may be qualitatively accurate but are not suitable for quantitative analysis. In such cases, we recommend fine-tuning the model to better align with the specific application.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services.
-Authorized use of Microsoft trademarks or logos is subject to and must follow [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
-
-## Responsible AI Transparency Documentation
-
-The responsible AI transparency documentation can be found [here](MODEL_CARD.md).
-
-
-## Researcher and Developers
-MatterSim is actively under development, and we welcome community engagement. If you have research interests related to this model, ideas you’d like to contribute, or issues to report, we encourage you to reach out to us at [ai4s-materials@microsoft.com](mailto:ai4s-materials@microsoft.com).
