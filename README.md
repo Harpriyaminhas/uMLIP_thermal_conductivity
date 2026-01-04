@@ -10,12 +10,6 @@ Unravelling Lone Pair Induced Bonding Effects on Thermal Conductivity in Metal C
 
 ### Install from PyPI
 > [!TIP]
-> While not mandatory, we recommend creating a clean conda environment before installing MatterSim to avoid potential package conflicts. You can create and activate a conda environment with the following commands:
->
-> ```bash
-> # create the environment
-> conda create -n mattersim python=3.10
->
 > # activate the environment
 > conda activate mattersim
 > ```
@@ -50,10 +44,6 @@ mamba activate mattersim
 uv pip install -e .
 ```
 
-## Pre-trained Models
-
-We currently offer two pre-trained **MatterSim-v1** models based on the **M3GNet** architecture in the [pretrained_models](./pretrained_models/) folder:
-
 ## To run phonopy and check dinamical stability 
 Phonopy folder contains the two python files, mattersim_ph_batch.py and mattersim_phonopy_class.py. Run mattersim_IFC.py to get the phonon results.
 The output results are in results_mattersim folder.
@@ -71,9 +61,14 @@ Similarly install CHGNet and MACE to predict the Dynamical Stability
 
 ## Reference
 @article{minhas2025mattersim_thermal_condutivity}
-      title={Unravelling Lone Pair Induced Bonding Effects on Thermal Conductivity in Metal Chalcogenides using Machine Learning Potentials},
-      author={Harpriya Minhas and Rahul Kumar Sharma and Biswarup Pathak},
-      year={2025},
+  title   = {Unravelling Lone Pair--Induced Bonding Effects on Thermal Conductivity in Metal Chalcogenides Using Machine Learning Potentials},
+  author  = {Minhas, Harpriya and Sharma, Rahul Kumar and Pathak, Biswarup},
+  journal = {Journal of Materials Chemistry A},
+  year    = {2025},
+  volume  = {13},
+  doi     = {10.1039/D5TA08916F},
+  publisher = {Royal Society of Chemistry}
+}
 
 We kindly request that users of MatterSim version 1.0.0 cite our preprint available on arXiv:
 ```
